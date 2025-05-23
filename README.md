@@ -1,18 +1,24 @@
-# Script to get field_names for FIDs of interest using the data dictionary in the UKB RAP
+# Script for FID to field names conversion for UKB RAP Table Exporter
 
-To extract data using table exporter, field_names corresponding to FIDS are required (eg.-ifield_names="p1200_i0"). 
+To extract data using the UKB RAP [Table Exporter](https://documentation.dnanexus.com/developer/apps/developing-spark-apps/table-exporter-application), "UK Biobank style" data showcase **FIDS** needs to be converted to "UKB-FORMAT" **field names** 
 
-Field names are found in the "data dictionary".
-In "data dictionary", the field_names patter is p#### or p####_i0 p####_i2, etc. , where #### are the FIDS
-
-Instructions to get the data dictionary is here: 
-https://community.ukbiobank.ac.uk/hc/en-gb/articles/15955597101085-Is-there-a-data-dictionary
-
-Data dictionary can be downloaded onto local servers. 
+* Pattern for "UK Biobank style" data showcase **FIDS**: ###
+* Pattern for "UKB-FORMAT" **field names**:p[FID]_i[instance]_a[array].<br/>
+eg UKB-FORMAT **field name** p#### or p####_i#, p####_i# or p####_i##_a#, etc. , where **FID** is ####.<br/>
+eg UKB-FORMAT **field name**  p1230_i1_a2 represents UK Biobank style 1230-1.2 or **FID** 1230, instance 1, array 2.
+	* Field names are found in the **"data dictionary"**.
+  	* [Instructions to get the data dictionary](https://community.ukbiobank.ac.uk/hc/en-gb/articles/15955597101085-Is-there-a-data-dictionary)
+	* Data dictionary can be downloaded onto local servers. 
 
 In the following script, 
-- 'fids_required' is a UKB FID list, one per line
-- 'output_file' is a list of field_names that in the UKB-FORMAT - This assumes the field name follows the pattern p<field id>_i<instance>_a<array>. Names are then converted into UK Biobank style - for example, field p123_i0_a0 becomes 123-0.0. 
+- input file 'fids_required' is a .txt file with UKB FID list, one per line. Adding instances and arrays is not required.<br/>
+  eg of fidlist.txt: <br/>
+  25001<br/>
+  12673<br/>
+  40005<br/>
+
+- input file 'data_dictionary' is a "XXX_XXX.dataset.data_dictionary.csv" file. 
+- 'output_file' is a .txt file with list of field names ready for table exporter 
 
 ## Main Script grep_ifield_names.sh
 ```sh
