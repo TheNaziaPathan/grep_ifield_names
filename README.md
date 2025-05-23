@@ -44,8 +44,11 @@ done < "$fids_required"
 # Remove the trailing '|'
 pattern=${pattern%|}
 
+#start the output_file with "eid"
+echo eid > "$output_file"
+
 # Run grep with the dynamically built pattern
-grep -E "$pattern" "$data_dictionary"| cut -d "," -f 2 > "$output_file"
+grep -E "$pattern" "$data_dictionary"| cut -d "," -f 2 >> "$output_file"
 #end of script
 ```
 ## Change file permission
