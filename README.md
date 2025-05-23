@@ -12,7 +12,7 @@ Data dictionary can be downloaded onto local servers.
 
 In the following script, 
 - 'fids_required' is a UKB FID list, one per line
-- 'output_file' is a list of ifield_names that include incidence 0-9. Change the "pattern" if FIDs include more than 9 incidence. 
+- 'output_file' is a list of field_names that in the UKB-FORMAT - This assumes the field name follows the pattern p<field id>_i<instance>_a<array>. Names are then converted into UK Biobank style - for example, field p123_i0_a0 becomes 123-0.0. 
 
 ## Main Script grep_ifield_names.sh
 ```sh
@@ -32,7 +32,7 @@ pattern=""
 # Read FIDs from the file
 while read -r fid; do
     # Append the pattern for this fid
-	pattern+="\\bp${fid}(_i[0-9]+|_[0-9]+)?\\b|"
+	pattern+="\\bp${fid}(_i[0-9]+|_[0-9])?(_a[0-9])?\\b|"
 done < "$fids_required"
 
 # Remove the trailing '|'
